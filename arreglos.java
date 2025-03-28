@@ -3,13 +3,27 @@ import java.util.Scanner;
 public class arreglos {
         public static int t = 25; //tamano maximo del grupo
 
-    public static double [] leerCalificaiones (double [] calificaciones) {
+    public static double [] leerCalificaiones () {
+        double[] calificaciones = new double[t];
         Scanner scn = new Scanner(System.in);
+
             for (int i = 0; i < calificaciones.length; i++) {
                 System.out.println("escribe calificacion [" + i + "]: ");
                 calificaciones[i] = scn.nextDouble();
             }
             return calificaciones;
+    }
+
+    public static void imprimirResultados(boolean[] resultados){
+        for(boolean resultado : resultados )
+        System.out.println(resultado);
+    }
+
+    public static double[] obtenerPromInd(double[] p1, double[] p2, double[] p3, double[] p4){
+        double[] resultado = new double[t];
+        for ( int i=0; i<resultado.length; i++ )
+        resultado[i] =  (p1[i] + p2[i] + p3[i] + p4[i])/4;
+        return resultado;
     }
 
     public static void imprimirCalificaciones (double [] calificaciones) {
@@ -19,9 +33,16 @@ public class arreglos {
             System.out.println(calificacion);
     }
 
-    public static void evaluarCalificaciones () {
-
-    }
+    public static boolean [] evaluarCalificaciones(double[] proms) {
+        boolean[] resultado = new boolean[t];
+        for (int i=0; i<proms.length; i++){
+        if (proms[i] >=7)
+        resultado[i] = true;
+        else
+        resultado[i] = false;
+     }
+        return resultado;
+      }
 
     public static void main(String[] args) {
         double [] parcial1, parcial2, parcial3, parcial4; //se declaran los arreglos
@@ -30,7 +51,7 @@ public class arreglos {
         Scanner scn = new Scanner(System.in);
 
         System.out.println("Programa que calcula el promedio final del grupo");
-        System.out.println("escribe el tamano del grupo: ");
+        System.out.println("Escribe el tamaño del grupo: ");
         t = scn.nextInt();
 
         //para contruir los arreglos
@@ -44,19 +65,24 @@ public class arreglos {
         //para leer las calificaciones 
         System.out.println("--------------------------------------------------");
         System.out.println("lectura de calificaiones del parcial 1: ");
-        parcial1 = leerCalificaiones(parcial1);
+        parcial1 = leerCalificaiones();
 
         System.out.println("--------------------------------------------------");
         System.out.println("lectura de calificaiones del parcial 2: ");
-        parcial2 = leerCalificaiones(parcial2);
+        parcial2 = leerCalificaiones();
 
         System.out.println("--------------------------------------------------");
         System.out.println("lectura de calificaiones del parcial 3: ");
-        parcial3 = leerCalificaiones(parcial3);
+        parcial3 = leerCalificaiones();
 
         System.out.println("--------------------------------------------------");
         System.out.println("lectura de calificaiones del parcial 4: ");
-        parcial4 = leerCalificaiones(parcial4);
+        parcial4 = leerCalificaiones();
+        
+        //calcular promedio individual
+        promInd = obtenerPromInd(parcial1, parcial2, parcial3, parcial4);
+        // evaluar si cada estudiante esta aprovado o no
+        aprobados = evaluarCalificaciones(promInd);
 
         //mostrar calificaiones de los parciales 
         System.out.println("----------------------");
@@ -74,8 +100,14 @@ public class arreglos {
         System.out.println("----------------------");
         System.out.println("calificaciones del parcial 4: ");
         imprimirCalificaciones(parcial4);
-
-        scn.close();
+        System.out.println("----------------------");
+        System.out.println("Promedios individuales ");
+        imprimirCalificaciones(promInd);
+        System.out.println("----------------------");
+        System.out.println("Estudiantes aprobados ");
+        imprimirResultados(aprobados);
+        
+       scn.close();
     }
     
 }
