@@ -6,11 +6,12 @@ public class arreglos {
     public static double [] leerCalificaiones () {
         double[] calificaciones = new double[t];
         Scanner scn = new Scanner(System.in);
-
             for (int i = 0; i < calificaciones.length; i++) {
                 System.out.println("escribe calificacion [" + i + "]: ");
                 calificaciones[i] = scn.nextDouble();
             }
+        
+
             return calificaciones;
     }
 
